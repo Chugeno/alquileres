@@ -47,7 +47,10 @@
         // Inicializa Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        
+        // Exportamos db para que sea accesible desde app.js
+        export { db };
     </script>
-    <script src="app.js"></script>
+    <script src="app.js" type="module"></script>
 </body>
 </html>

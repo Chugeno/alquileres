@@ -31,23 +31,22 @@
 
     <!-- Configuración de Firebase -->
     <script type="module">
-      // Importa las funciones que necesitas de los SDK que necesitas
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-      // TODO: Agrega los SDK para los productos de Firebase que desees utilizar
-      // https://firebase.google.com/docs/web/setup#available-libraries
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-      // Configuración de tu app web en Firebase
-      const firebaseConfig = {
-        apiKey: "AIzaSyA538me1VWuKmN7UIrmgWQq1ZChaMZsCJ0",
-        authDomain: "alquileres-azurmendi.firebaseapp.com",
-        projectId: "alquileres-azurmendi",
-        storageBucket: "alquileres-azurmendi.appspot.com",
-        messagingSenderId: "1023417131283",
-        appId: "1:1023417131283:web:c6b95538415f42de3c3ae6"
-      };
+        // Configuración de tu app web en Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyA538me1VWuKmN7UIrmgWQq1ZChaMZsCJ0",
+            authDomain: "alquileres-azurmendi.firebaseapp.com",
+            projectId: "alquileres-azurmendi",
+            storageBucket: "alquileres-azurmendi.appspot.com",
+            messagingSenderId: "1023417131283",
+            appId: "1:1023417131283:web:c6b95538415f42de3c3ae6"
+        };
 
-      // Inicializa Firebase
-      const app = initializeApp(firebaseConfig);
+        // Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
     </script>
     <script src="app.js"></script>
 </body>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alquileres</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Alquileres</h1>
+    </header>
+    <main>
+        <section id="ingresos">
+            <h2>Ingresos</h2>
+            <button id="nuevo-alquiler">Nuevo Alquiler</button>
+            <div id="lista-ingresos"></div>
+        </section>
+        <section id="gastos">
+            <h2>Gastos</h2>
+            <button id="nuevo-gasto">Nuevo Gasto</button>
+            <div id="lista-gastos"></div>
+        </section>
+        <section id="reparto-ganancias">
+            <h2>Reparto de Ganancias</h2>
+            <button id="nuevo-miembro">Sumar Miembro</button>
+            <div id="lista-miembros"></div>
+            <div id="reparto"></div>
+        </section>
+    </main>
+
+    <!-- Firebase Configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

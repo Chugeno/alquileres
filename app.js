@@ -1,11 +1,11 @@
 // Configuración de Firebase
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO_ID.firebaseapp.com",
-    projectId: "TU_PROYECTO_ID",
-    storageBucket: "TU_PROYECTO_ID.appspot.com",
-    messagingSenderId: "TU_SENDER_ID",
-    appId: "TU_APP_ID"
+    apiKey: "AIzaSyA538me1VWuKmN7UIrmgWQq1ZChaMZsCJ0",
+    authDomain: "alquileres-azurmendi.firebaseapp.com",
+    projectId: "alquileres-azurmendi",
+    storageBucket: "alquileres-azurmendi.appspot.com",
+    messagingSenderId: "1023417131283",
+    appId: "1:1023417131283:web:c6b95538415f42de3c3ae6"
 };
 
 // Inicializar Firebase
@@ -116,7 +116,6 @@ function cargarMiembros() {
 function calcularReparto() {
     let totalIngresos = 0;
     let totalGastos = 0;
-    let miembros = [];
 
     // Obtener ingresos
     db.collection('alquileres').get().then((snapshot) => {
@@ -126,36 +125,28 @@ function calcularReparto() {
         });
 
         // Obtener gastos
-        db.collection('gastos').get().then((snapshot) => {
-            snapshot.forEach((doc) => {
-                const gasto = doc.data();
-                totalGastos += gasto.monto;
-            });
+db.collection('gastos').get().then((snapshot) => {
+    snapshot.forEach((doc) => {
+        const gasto = doc.data();
+        totalGastos += gasto.monto;
+    });
 
-            // Obtener miembros y calcular reparto
-            db.collection('miembros').get().then((snapshot) => {
-                snapshot.forEach((doc) => {
-                    miembros.push(doc.data());
-                });
+    // Obtener miembros y calcular reparto
+    db.collection('miembros').get().then((snapshot) => {
+        const miembros = [];
+        snapshot.forEach((doc) => {
+            const miembro = doc.data();
+            miembros.push(miembro);
+        });
 
-                // Calcular reparto
-                const ganancias = totalIngresos - totalGastos;
-                repartoDiv.innerHTML = '';
-                miembros.forEach((miembro) => {
-                    const div = document.createElement('div');
-                    const gananciaMiembro = (ganancias * miembro.porcentaje) / 100;
-                    div.textContent = `${miembro.nombreMiembro} - ${gananciaMiembro.toFixed(2)} €`;
-                    repartoDiv.appendChild(div);
-                });
-            });
+        // Calcular reparto
+        const ganancias = totalIngresos - totalGastos;
+        repartoDiv.innerHTML = '';
+        miembros.forEach((miembro) => {
+            const gananciaMiembro = (ganancias * miembro.porcentaje) / 100;
+            const div = document.createElement('div');
+            div.textContent = `${miembro.nombreMiembro} - ${gananciaMiembro.toFixed(2)} €`;
+            repartoDiv.appendChild(div);
         });
     });
-}
-
-// Cargar datos al cargar la página
-window.onload = function() {
-    cargarIngresos();
-    cargarGastos();
-    cargarMiembros();
-    calcularReparto();
-};
+});

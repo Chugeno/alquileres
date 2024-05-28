@@ -1,5 +1,20 @@
-import { db } from './index.html';
-import { collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+// Importa las funciones que necesitas de los SDK que necesitas
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyA538me1VWuKmN7UIrmgWQq1ZChaMZsCJ0",
+    authDomain: "alquileres-azurmendi.firebaseapp.com",
+    projectId: "alquileres-azurmendi",
+    storageBucket: "alquileres-azurmendi.appspot.com",
+    messagingSenderId: "1023417131283",
+    appId: "1:1023417131283:web:c6b95538415f42de3c3ae6"
+};
+
+// Inicializa Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // Referencias a elementos del DOM
 const listaIngresos = document.getElementById('lista-ingresos');

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alquileres</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -27,6 +27,8 @@
                     <button id="login-button">Iniciar Sesión</button>
                 </div>
             </div>
+            <button id="logout-button" style="display:none;">Cerrar Sesión</button>
+            <div id="auth-messages"></div>
         </section>
         <section id="ingresos">
             <h2>Ingresos</h2>
@@ -78,6 +80,18 @@
         const loginEmail = document.getElementById('login-email');
         const loginPassword = document.getElementById('login-password');
         const loginButton = document.getElementById('login-button');
+        const logoutButton = document.getElementById('logout-button');
+        const authMessages = document.getElementById('auth-messages');
+
+        // Manejo de mensajes
+        function showMessage(message, type) {
+            authMessages.textContent = message;
+            authMessages.className = type; // 'success' or 'error'
+            setTimeout(() => {
+                authMessages.textContent = '';
+                authMessages.className = '';
+            }, 3000);
+        }
 
         // Manejo de registro
         registerButton.addEventListener('click', () => {
@@ -85,11 +99,11 @@
             const password = registerPassword.value;
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    console.log('Usuario registrado:', userCredential.user);
+                    showMessage('Usuario registrado exitosamente', 'success');
                     authSection.style.display = 'none';
                 })
                 .catch((error) => {
-                    console.error('Error al registrar usuario:', error);
+                    showMessage('Error al registrar usuario: ' + error.message, 'error');
                 });
         });
 
@@ -99,11 +113,24 @@
             const password = loginPassword.value;
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    console.log('Usuario inició sesión:', userCredential.user);
+                    showMessage('Inicio de sesión exitoso', 'success');
                     authSection.style.display = 'none';
                 })
                 .catch((error) => {
-                    console.error('Error al iniciar sesión:', error);
+                    showMessage('Error al iniciar sesión: ' + error.message, 'error');
+                });
+        });
+
+        // Manejo de cierre de sesión
+        logoutButton.addEventListener('click', () => {
+            signOut(auth)
+                .then(() => {
+                    showMessage('Cierre de sesión exitoso', 'success');
+                    authSection.style.display = 'block';
+                    logoutButton.style.display = 'none';
+                })
+                .catch((error) => {
+                    showMessage('Error al cerrar sesión: ' + error.message, 'error');
                 });
         });
 
@@ -112,8 +139,10 @@
             if (user) {
                 console.log('Usuario autenticado:', user);
                 authSection.style.display = 'none';
+                logoutButton.style.display = 'block';
             } else {
                 authSection.style.display = 'block';
+                logoutButton.style.display = 'none';
             }
         });
 
